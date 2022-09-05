@@ -30,7 +30,7 @@ const Signup = () => {
                   placeholder="Password"
                   autoComplete="current-password"
                 />
-                <button className="bg-red-500 px-4 py-2 my-6 rounded">
+                <button className="bg-red-500 px-4 py-2 my-6 rounded text-lg">
                   Sign Up
                 </button>
 
@@ -42,7 +42,7 @@ const Signup = () => {
                   <p>Need Help?</p>
                 </div>
                 <p className="my-8">
-                  <span>
+                  <span className="text-gray-500">
                     Already Subscribed To Netflix?
                   </span>{" "}
                   <Link to="/login" className="text-red-500">Sign In</Link>
