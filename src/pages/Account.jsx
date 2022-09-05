@@ -1,9 +1,26 @@
-import React from 'react'
+import React from "react";
+import SavedShows from "../components/SavedShows";
 
 const Account = () => {
   return (
-    <div>Account</div>
-  )
-}
+    <>
+      <div className="w-full text-white">
+        <img
+          className="w-full h-[400px] object-cover"
+          src="https://assets.nflxext.com/ffe/siteui/vlv3/908077b4-cf0a-43c3-b2c9-435fb990299b/bd9accb1-8eab-4786-9180-42236f7863f6/PK-en-20220829-popsignuptwoweeks-perspective_alpha_website_medium.jpg"
+          alt="/"
+        />
+        <div className="bg-black/60 w-full h-[500px] fixed top-0 left-0"></div>
+        <div className="absolute top-[20%] p-4 md:p-8">
+          <h1 className="text-3xl md:text-5xl text-center font-bold">
+            My Shows
+          </h1>
+        </div>
+      </div>
 
-export default Account
+      <SavedShows />
+    </>
+  );
+};
+
+export default Account;

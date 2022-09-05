@@ -30,12 +30,12 @@ const Signup = () => {
         />
         <div className="absolute bg-black/60 w-full h-screen top-0 left-0"></div>
         <div className="w-full fixed z-50 px-4 py-24">
-          <div className="max-w-[400px] h-[500px] bg-black/70 mx-auto text-white">
+          <div className="max-w-[400px] h-[450px] bg-black/70 mx-auto text-white">
             <div className="max-w-[300px] mx-auto py-16">
               <h1 className="text-3xl font-bold">Sign Up</h1>
               <form
                 onSubmit={handleSubmit}
-                className="w-full flex flex-col my-4"
+                className="w-full flex flex-col mt-2"
               >
                 <input
                   onChange={(e) => setEmail(e.target.value)}
