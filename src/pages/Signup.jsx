@@ -1,7 +1,25 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserAuth } from "../context/AuthContext";
 
 const Signup = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { user, signUp } = UserAuth();
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await signUp(email, password);
+      navigate('/')
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <div className="w-full h-screen">
@@ -15,8 +33,12 @@ const Signup = () => {
           <div className="max-w-[400px] h-[500px] bg-black/70 mx-auto text-white">
             <div className="max-w-[300px] mx-auto py-16">
               <h1 className="text-3xl font-bold">Sign Up</h1>
-              <form className="w-full flex flex-col my-4">
+              <form
+                onSubmit={handleSubmit}
+                className="w-full flex flex-col my-4"
+              >
                 <input
+                  onChange={(e) => setEmail(e.target.value)}
                   className="p-3 my-2 rounded bg-gray-700"
                   type="email"
                   name="email"
@@ -24,6 +46,7 @@ const Signup = () => {
                   autoComplete="email"
                 />
                 <input
+                  onChange={(e) => setPassword(e.target.value)}
                   className="p-3 my-2 rounded bg-gray-700"
                   type="password"
                   name="password"
@@ -45,7 +68,9 @@ const Signup = () => {
                   <span className="text-gray-500">
                     Already Subscribed To Netflix?
                   </span>{" "}
-                  <Link to="/login" className="text-red-500">Sign In</Link>
+                  <Link to="/login" className="text-red-500">
+                    Sign In
+                  </Link>
                 </p>
               </form>
             </div>

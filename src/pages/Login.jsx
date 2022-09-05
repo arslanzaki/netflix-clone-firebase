@@ -1,7 +1,26 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserAuth } from "../context/AuthContext";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const { user, logIn } = UserAuth();
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      await logIn(email, password);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+      setError(err.message);
+    }
+  };
   return (
     <>
       <div className="w-full h-screen">
@@ -12,11 +31,16 @@ const Login = () => {
         />
         <div className="absolute bg-black/60 w-full h-screen top-0 left-0"></div>
         <div className="w-full fixed z-50 px-4 py-24">
-          <div className="max-w-[400px] h-[500px] bg-black/70 mx-auto text-white">
+          <div className="max-w-[400px] h-[450px] bg-black/70 mx-auto text-white">
             <div className="max-w-[300px] mx-auto py-16">
               <h1 className="text-3xl font-bold">Sign In</h1>
-              <form className="w-full flex flex-col my-4">
+              {error ? <p className="mt-2 text-red-500">{error}</p>: null}
+              <form
+                onSubmit={handleSubmit}
+                className="w-full flex flex-col mb-4 mt-2"
+              >
                 <input
+                  onChange={(e) => setEmail(e.target.value)}
                   className="p-3 my-2 rounded bg-gray-700"
                   type="email"
                   name="email"
@@ -24,6 +48,7 @@ const Login = () => {
                   autoComplete="email"
                 />
                 <input
+                  onChange={(e) => setPassword(e.target.value)}
                   className="p-3 my-2 rounded bg-gray-700"
                   type="password"
                   name="password"
