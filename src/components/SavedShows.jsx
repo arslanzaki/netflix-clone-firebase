@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { UserAuth } from "../context/AuthContext";
 import { db } from "../firebase";
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { AiOutlineClose } from "react-icons/ai";
 
 const SavedShows = () => {
   const [movies, setMovies] = useState([]);
@@ -23,6 +24,18 @@ const SavedShows = () => {
       setMovies(doc.data()?.savedShows);
     });
   }, [user?.email]);
+
+  const movieRef = doc(db, "users", `${user?.email}`);
+  const deleteShow = async (showId) => {
+    try {
+      const result = movies.filter((item) => item.id !== showId);
+      await updateDoc(movieRef, {
+        savedShows: result,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -49,6 +62,12 @@ const SavedShows = () => {
               <div className="absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white">
                 <p className="whitespace-normal text-xs md:text-lg flex items-center justify-center h-full text-center">
                   {item?.title}
+                </p>
+                <p
+                  onClick={() => deleteShow(item.id)}
+                  className="text-gray-300 text-xl absolute top-4 right-4"
+                >
+                  <AiOutlineClose />
                 </p>
               </div>
             </div>
